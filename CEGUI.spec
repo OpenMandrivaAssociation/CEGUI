@@ -13,7 +13,7 @@ License: MIT
 Group: Development/C++
 Url: http://www.cegui.org.uk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires: libxml2-devel mesagl-devel mesaglu-devel mesaglut-devel
+BuildRequires: libxml2-devel mesagl-devel mesaglu-devel mesaglut-devel freetype2-devel
 
 %description
 Crazy Eddie's GUI System is a free library providing windowing and widgets for 
