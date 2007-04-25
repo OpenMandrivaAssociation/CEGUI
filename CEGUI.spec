@@ -1,7 +1,7 @@
 %define name CEGUI
 %define version 0.5.0
 %define subversion b
-%define release %mkrel 1
+%define release %mkrel 2
 %define libname %mklibname %name 0
 
 Summary: A free library providing windowing and widgets for graphics APIs / engines 
@@ -14,6 +14,7 @@ Group: Development/C++
 Url: http://www.cegui.org.uk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: libxml2-devel mesagl-devel mesaglu-devel mesaglut-devel freetype2-devel pcre-devel
+BuildRequires: FreeImage-devel
 
 %description
 Crazy Eddie's GUI System is a free library providing windowing and widgets for 
@@ -62,11 +63,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/*so.*
+%{_libdir}/*so*
 
 %files -n %{libname}-devel
 %defattr(-,root,root)
-%{_libdir}/*so
 %{_libdir}/*la
 %{_includedir}/%{name}
 %{_libdir}/pkgconfig/*
