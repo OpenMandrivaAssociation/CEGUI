@@ -70,5 +70,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*la
 %{_includedir}/%{name}
 %{_libdir}/pkgconfig/*
-
-%changelog
