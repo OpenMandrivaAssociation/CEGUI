@@ -12,7 +12,6 @@ Source0: %{name}-%{version}%{subversion}.tar.bz2
 License: MIT 
 Group: Development/C++
 Url: http://www.cegui.org.uk
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: libxml2-devel mesagl-devel mesaglu-devel mesaglut-devel freetype2-devel pcre-devel
 BuildRequires: FreeImage-devel
 
