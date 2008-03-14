@@ -1,20 +1,27 @@
-%define name CEGUI
-%define version 0.5.0
-%define subversion b
-%define release %mkrel 2
-%define libname %mklibname %name 0
+%define realver 0.5.0
+%define major 1
+%define libname %mklibname %{name} 0
+%define develname %mklibname %{name} -d
 
-Summary: A free library providing windowing and widgets for graphics APIs / engines 
-Name: %{name}
-Version: %{version}
-Release: %{release}
-Source0: %{name}-%{version}%{subversion}.tar.bz2
-License: MIT 
-Group: Development/C++
-Url: http://www.cegui.org.uk
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires: libxml2-devel mesagl-devel mesaglu-devel mesaglut-devel freetype2-devel pcre-devel
-BuildRequires: FreeImage-devel
+Summary:	A free library providing windowing and widgets for graphics APIs / engines 
+Name:		CEGUI
+Version:	%{realver}b
+Release:	%mkrel 2
+License:	MIT 
+Group:		Development/C++
+Url:		http://www.cegui.org.uk
+Source0:	http://prdownloads.sourceforge.net/crayzedsgui/%{name}-%{version}.tar.bz2
+BuildRequires:	libxml2-devel
+BuildRequires:	mesagl-devel
+BuildRequires:	mesaglu-devel
+BuildRequires:	mesaglut-devel
+BuildRequires:	freetype2-devel
+BuildRequires:	pcre-devel
+BuildRequires:	FreeImage-devel
+BuildRequires:	libexpat-devel
+BuildRequires:	libxerces-c0-devel
+BuildRequires:	gtk2-devel
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Crazy Eddie's GUI System is a free library providing windowing and widgets for 
@@ -24,38 +31,44 @@ and targeted at games developers who should be spending their time creating
 great games, not building GUI sub-systems!
 
 %package -n %{libname}
-Summary:        CEGUI library
-Group:          Games/Other
-%description -n %{libname}
-This is a library used by CEGUI
+Summary:	CEGUI library
+Group:		Games/Other
 
-%package -n %{libname}-devel
-Summary:        Development files for CEGUI
-Group:          Development/C++
-Requires:    %{libname} = %{version}
-Provides:    libCEGUI-devel CEGUI-devel
-%description -n  %{libname}-devel
-Development file for CEGUI
+%description -n %{libname}
+This is a library used by CEGUI.
+
+%package -n %{develname}
+Summary:	Development files for CEGUI
+Group:		Development/C++
+Requires:	%{libname} = %{version}-%{release}
+Provides:	lib%{name}-devel = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
+Obsoletes:	%mklibname %{name} 0 -d
+
+%description -n  %{develname}
+Development file for CEGUI.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{realver}
 touch NEWS
+
+%build
 aclocal
 libtoolize --copy --force --ltdl
 autoheader
 automake -a -c
 autoconf
-%configure
+%configure2_5x \
+	--with-gtk2
 
-%build
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%makeinstall
+rm -rf %{buildroot}
+%makeinstall_std
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %post -n %{libname} -p /sbin/ldconfig
 
@@ -63,9 +76,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/*so*
+%{_libdir}/*.so*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %{_libdir}/*la
 %{_includedir}/%{name}
