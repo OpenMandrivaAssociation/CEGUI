@@ -1,6 +1,6 @@
 %define realver 0.5.0
 %define major 1
-%define libname %mklibname %{name} 0
+%define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
 
 Summary:	A free library providing windowing and widgets for graphics APIs / engines 
@@ -53,11 +53,6 @@ Development file for CEGUI.
 touch NEWS
 
 %build
-aclocal
-libtoolize --copy --force --ltdl
-autoheader
-automake -a -c
-autoconf
 %configure2_5x \
 	--with-gtk2
 
