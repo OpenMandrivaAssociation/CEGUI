@@ -19,7 +19,7 @@ BuildRequires:	freetype2-devel
 BuildRequires:	pcre-devel
 BuildRequires:	FreeImage-devel
 BuildRequires:	libexpat-devel
-BuildRequires:	libxerces-c0-devel
+BuildRequires:	libxerces-c-devel
 BuildRequires:	gtk2-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
