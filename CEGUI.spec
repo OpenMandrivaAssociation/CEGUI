@@ -1,12 +1,13 @@
 %define realver 0.5.0
 %define major 1
+%define minor 0
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
 
 Summary:	A free library providing windowing and widgets for graphics APIs / engines 
 Name:		CEGUI
 Version:	%{realver}b
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	MIT 
 Group:		Development/C++
 Url:		http://www.cegui.org.uk
@@ -71,10 +72,12 @@ rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/*.so*
+%{_libdir}/*.so.%{major}*
+%{_libdir}/*.so.%{minor}*
 
 %files -n %{develname}
 %defattr(-,root,root)
 %{_libdir}/*la
+%{_libdir}/*.so
 %{_includedir}/%{name}
 %{_libdir}/pkgconfig/*
