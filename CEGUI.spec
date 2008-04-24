@@ -7,7 +7,7 @@
 Summary:	A free library providing windowing and widgets for graphics APIs / engines 
 Name:		CEGUI
 Version:	%{realver}b
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	MIT 
 Group:		Development/C++
 Url:		http://www.cegui.org.uk
@@ -34,6 +34,7 @@ great games, not building GUI sub-systems!
 %package -n %{libname}
 Summary:	CEGUI library
 Group:		Games/Other
+Obsoletes:	%mklibname %{name} 0
 
 %description -n %{libname}
 This is a library used by CEGUI.
