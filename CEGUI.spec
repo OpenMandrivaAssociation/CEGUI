@@ -1,4 +1,4 @@
-%define realver 0.5.0
+%define realver 0.6.1
 %define major 1
 %define minor 0
 %define libname %mklibname %{name} %{major}
@@ -6,22 +6,24 @@
 
 Summary:	A free library providing windowing and widgets for graphics APIs / engines 
 Name:		CEGUI
-Version:	%{realver}b
-Release:	%mkrel 5
+Version:	%{realver}
+Release:	%mkrel 1
 License:	MIT 
 Group:		Development/C++
 Url:		http://www.cegui.org.uk
-Source0:	http://prdownloads.sourceforge.net/crayzedsgui/%{name}-%{version}.tar.bz2
+Source0:	http://prdownloads.sourceforge.net/crayzedsgui/%{name}-%{version}.tar.gz
+Patch0:		cegui-0.6.0-userverso.patch
 BuildRequires:	libxml2-devel
 BuildRequires:	mesagl-devel
 BuildRequires:	mesaglu-devel
 BuildRequires:	mesaglut-devel
 BuildRequires:	freetype2-devel
 BuildRequires:	pcre-devel
-BuildRequires:	FreeImage-devel
+#BuildRequires:	freeimage-devel
 BuildRequires:	libexpat-devel
 BuildRequires:	libxerces-c-devel
 BuildRequires:	gtk2-devel
+BuildRequires:	devil-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -52,6 +54,7 @@ Development file for CEGUI.
 
 %prep
 %setup -q -n %{name}-%{realver}
+%patch0 -p1
 touch NEWS
 
 %build
