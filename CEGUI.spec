@@ -1,3 +1,5 @@
+%define _disable_ld_no_undefined 1
+
 %define realver 0.6.1
 %define major 1
 %define minor 0
@@ -19,7 +21,7 @@ BuildRequires:	mesaglu-devel
 BuildRequires:	mesaglut-devel
 BuildRequires:	freetype2-devel
 BuildRequires:	pcre-devel
-#BuildRequires:	freeimage-devel
+BuildRequires:	freeimage-devel
 BuildRequires:	libexpat-devel
 BuildRequires:	libxerces-c-devel
 BuildRequires:	gtk2-devel
@@ -89,3 +91,4 @@ rm -rf %{buildroot}
 %{_libdir}/*.so
 %{_includedir}/%{name}
 %{_libdir}/pkgconfig/*
+%{_datadir}/%{name}
