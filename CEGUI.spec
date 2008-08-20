@@ -1,5 +1,3 @@
-%define _disable_ld_no_undefined 1
-
 %define realver 0.6.1
 %define major 1
 %define minor 0
@@ -9,7 +7,7 @@
 Summary:	A free library providing windowing and widgets for graphics APIs / engines 
 Name:		CEGUI
 Version:	%{realver}
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	MIT 
 Group:		Development/C++
 Url:		http://www.cegui.org.uk
