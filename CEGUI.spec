@@ -13,6 +13,7 @@ Group:		Development/C++
 Url:		http://www.cegui.org.uk
 Source0:	http://prdownloads.sourceforge.net/crayzedsgui/%{name}-%{version}.tar.gz
 Patch0:		cegui-0.6.0-userverso.patch
+Patch1:		CEGUI-0.6.1-fix-underlinking.patch
 BuildRequires:	libxml2-devel
 BuildRequires:	mesagl-devel
 BuildRequires:	mesaglu-devel
@@ -24,6 +25,8 @@ BuildRequires:	libexpat-devel
 BuildRequires:	libxerces-c-devel
 BuildRequires:	gtk2-devel
 BuildRequires:	devil-devel
+BuildRequires:	glew-devel
+BuildRequires:	tinyxml-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -55,11 +58,21 @@ Development file for CEGUI.
 %prep
 %setup -q -n %{name}-%{realver}
 %patch0 -p1
+%patch1 -p1
+
 touch NEWS
 
 %build
+./bootstrap
 %configure2_5x \
-	--with-gtk2
+	--with-gtk2 \
+	--disable-samples
+
+# We do not want to get linked against a system copy of ourselves!
+sed -i 's|-L%{_libdir}||g' RendererModules/OpenGLGUIRenderer/Makefile
+# Don't use rpath!
+sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
+sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
 %make
 
