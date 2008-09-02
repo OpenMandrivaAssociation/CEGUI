@@ -7,7 +7,7 @@
 Summary:	A free library providing windowing and widgets for graphics APIs / engines 
 Name:		CEGUI
 Version:	%{realver}
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	MIT 
 Group:		Development/C++
 Url:		http://www.cegui.org.uk
@@ -24,7 +24,7 @@ BuildRequires:	freeimage-devel
 BuildRequires:	libexpat-devel
 BuildRequires:	libxerces-c-devel
 BuildRequires:	gtk2-devel
-BuildRequires:	devil-devel
+#BuildRequires:	devil-devel
 BuildRequires:	glew-devel
 BuildRequires:	tinyxml-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -66,7 +66,10 @@ touch NEWS
 ./bootstrap
 %configure2_5x \
 	--with-gtk2 \
-	--disable-samples
+	--disable-samples \
+	--disable-irrlicht-renderer \
+	--enable-freeimage
+	
 
 # We do not want to get linked against a system copy of ourselves!
 sed -i 's|-L%{_libdir}||g' RendererModules/OpenGLGUIRenderer/Makefile
