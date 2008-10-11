@@ -58,7 +58,7 @@ Obsoletes:	%mklibname %{name} 0 -d
 Development file for CEGUI.
 
 %prep
-%setup -q -n %{name}-%{realver}
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
