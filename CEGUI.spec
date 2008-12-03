@@ -1,4 +1,6 @@
-%define libname %mklibname %{name} %{version}
+%define major 1
+%define minor 0
+%define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
 
 Summary:	A free library providing windowing and widgets for graphics APIs / engines 
@@ -9,13 +11,10 @@ License:	MIT
 Group:		Development/C++
 URL:		http://www.cegui.org.uk
 Source0:	http://prdownloads.sourceforge.net/crayzedsgui/%{name}-%{version}.tar.gz
-# From Fedora, slightly modified, now adopted upstream: version
-# libraries based on cegui version - AdamW 2008/10
-Patch0:		cegui-0.6.1-release-as-so-ver.patch
 # From Fedora, now adopted upstream: adjust dlopen logic to match
 # release-as-so-ver.patch - AdamW 2008/10
 Patch1:		cegui-0.6.0-userverso.patch
-Patch2:		CEGUI-0.6.1-fix-underlinking.patch
+Patch2:		CEGUI-0.6.2-fix-underlinking.patch
 BuildRequires:	libxml2-devel
 BuildRequires:	mesagl-devel
 BuildRequires:	mesaglu-devel
@@ -42,6 +41,7 @@ great games, not building GUI sub-systems!
 Summary:	CEGUI library
 Group:		Games/Other
 Obsoletes:	%mklibname %{name} 0
+Obsoletes:	%mklibname %{name} 0.6.1
 
 %description -n %{libname}
 This is a library used by CEGUI.
@@ -59,7 +59,6 @@ Development file for CEGUI.
 
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 
@@ -99,13 +98,13 @@ rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/libCEGUI*-%{version}.so
+%{_libdir}/libCEGUI*.so.%{major}*
+%{_libdir}/libCEGUI*.so.%{minor}*
 
 %files -n %{develname}
 %defattr(-,root,root)
 %{_libdir}/*la
 %{_libdir}/*.so
-%exclude %{_libdir}/libCEGUI*-%{version}.so
 %{_includedir}/%{name}
 %{_libdir}/pkgconfig/*
 %{_datadir}/%{name}
