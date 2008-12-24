@@ -6,14 +6,11 @@
 Summary:	A free library providing windowing and widgets for graphics APIs / engines 
 Name:		CEGUI
 Version:	0.6.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	MIT 
 Group:		Development/C++
 URL:		http://www.cegui.org.uk
 Source0:	http://prdownloads.sourceforge.net/crayzedsgui/%{name}-%{version}.tar.gz
-# From Fedora, now adopted upstream: adjust dlopen logic to match
-# release-as-so-ver.patch - AdamW 2008/10
-Patch1:		cegui-0.6.0-userverso.patch
 Patch2:		CEGUI-0.6.2-fix-underlinking.patch
 BuildRequires:	libxml2-devel
 BuildRequires:	mesagl-devel
@@ -59,7 +56,6 @@ Development file for CEGUI.
 
 %prep
 %setup -q
-%patch1 -p1
 %patch2 -p1
 
 touch NEWS
