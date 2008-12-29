@@ -1,7 +1,8 @@
-%define major 1
-%define minor 0
-%define libname %mklibname %{name} %{major}
+%define libname %mklibname %{name} %{version}
 %define develname %mklibname %{name} -d
+
+# (tpg) for patch 3, it fails on one line in src/Makefile.am
+%define _default_patch_fuzz 3
 
 Summary:	A free library providing windowing and widgets for graphics APIs / engines 
 Name:		CEGUI
@@ -11,7 +12,9 @@ License:	MIT
 Group:		Development/C++
 URL:		http://www.cegui.org.uk
 Source0:	http://prdownloads.sourceforge.net/crayzedsgui/%{name}-%{version}.tar.gz
+Patch1:		cegui-0.6.0-userverso.patch
 Patch2:		CEGUI-0.6.2-fix-underlinking.patch
+Patch3:		CEGUI-0.6.2-release-as-so-ver.patch
 BuildRequires:	libxml2-devel
 BuildRequires:	mesagl-devel
 BuildRequires:	mesaglu-devel
@@ -38,6 +41,7 @@ great games, not building GUI sub-systems!
 Summary:	CEGUI library
 Group:		Games/Other
 Obsoletes:	%mklibname %{name} 0
+Obsoletes:	%mklibname %{name} 1
 Obsoletes:	%mklibname %{name} 0.6.1
 
 %description -n %{libname}
@@ -56,18 +60,22 @@ Development file for CEGUI.
 
 %prep
 %setup -q
+%patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 touch NEWS
 
 %build
-autoreconf -i
+autoreconf -ifv
+
 %configure2_5x \
 	--with-gtk2 \
 	--disable-samples \
 	--disable-irrlicht-renderer \
-	--enable-freeimage
-	
+	--enable-freeimage \
+	--disable-directfb-renderer
+
 
 # We do not want to get linked against a system copy of ourselves!
 sed -i 's|-L%{_libdir}||g' RendererModules/OpenGLGUIRenderer/Makefile
@@ -94,13 +102,13 @@ rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/libCEGUI*.so.%{major}*
-%{_libdir}/libCEGUI*.so.%{minor}*
+%{_libdir}/libCEGUI*-%{version}.so
 
 %files -n %{develname}
 %defattr(-,root,root)
 %{_libdir}/*la
 %{_libdir}/*.so
+%exclude %{_libdir}/libCEGUI*-%{version}.so
 %{_includedir}/%{name}
 %{_libdir}/pkgconfig/*
 %{_datadir}/%{name}
