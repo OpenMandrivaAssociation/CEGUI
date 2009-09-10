@@ -7,7 +7,7 @@
 Summary:	A free library providing windowing and widgets for graphics APIs / engines 
 Name:		CEGUI
 Version:	0.6.2
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	MIT 
 Group:		Development/C++
 URL:		http://www.cegui.org.uk
