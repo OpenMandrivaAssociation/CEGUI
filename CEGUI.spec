@@ -1,20 +1,15 @@
 %define libname %mklibname %{name} %{version}
 %define develname %mklibname %{name} -d
 
-# (tpg) for patch 3, it fails on one line in src/Makefile.am
-%define _default_patch_fuzz 3
-
 Summary:	A free library providing windowing and widgets for graphics APIs / engines 
 Name:		CEGUI
-Version:	0.6.2
-Release:	%mkrel 4
-License:	MIT 
+Version:	0.7.1
+Release:	%mkrel 1
+License:	MIT
 Group:		Development/C++
 URL:		http://www.cegui.org.uk
 Source0:	http://prdownloads.sourceforge.net/crayzedsgui/%{name}-%{version}.tar.gz
-Patch1:		cegui-0.6.0-userverso.patch
-Patch2:		CEGUI-0.6.2-fix-underlinking.patch
-Patch3:		CEGUI-0.6.2-release-as-so-ver.patch
+Patch2:		CEGUI-0.7.1-fix-underlinking.patch
 BuildRequires:	libxml2-devel
 BuildRequires:	mesagl-devel
 BuildRequires:	mesaglu-devel
@@ -25,9 +20,10 @@ BuildRequires:	freeimage-devel
 BuildRequires:	libexpat-devel
 BuildRequires:	libxerces-c-devel
 BuildRequires:	gtk2-devel
-#BuildRequires:	devil-devel
+BuildRequires:	devil-devel
 BuildRequires:	glew-devel
 BuildRequires:	tinyxml-devel
+BuildRequires:	fribidi-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -60,25 +56,25 @@ Development file for CEGUI.
 
 %prep
 %setup -q
-%patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
-touch NEWS
+touch NEWS COPYING README AUTHORS ChangeLog
 
 %build
 autoreconf -ifv
+export CFLAGS="%{optflags} -fPIC"
+export CXXFLAGS="%{optflags} -fPIC"
+export CPPFLAGS="%{optflags} -fPIC"
 
 %configure2_5x \
 	--with-gtk2 \
 	--disable-samples \
 	--disable-irrlicht-renderer \
 	--enable-freeimage \
-	--disable-directfb-renderer
+	--disable-directfb-renderer \
+	--enable-bidirectional-text
 
 
-# We do not want to get linked against a system copy of ourselves!
-sed -i 's|-L%{_libdir}||g' RendererModules/OpenGLGUIRenderer/Makefile
 # Don't use rpath!
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
