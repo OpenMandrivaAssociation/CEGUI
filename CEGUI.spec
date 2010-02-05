@@ -4,7 +4,7 @@
 Summary:	A free library providing windowing and widgets for graphics APIs / engines 
 Name:		CEGUI
 Version:	0.7.1
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	MIT
 Group:		Development/C++
 URL:		http://www.cegui.org.uk
@@ -38,7 +38,6 @@ Summary:	CEGUI library
 Group:		Games/Other
 Obsoletes:	%mklibname %{name} 0
 Obsoletes:	%mklibname %{name} 1
-Obsoletes:	%mklibname %{name} 0.6.1
 
 %description -n %{libname}
 This is a library used by CEGUI.
@@ -50,6 +49,7 @@ Requires:	%{libname} = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Obsoletes:	%mklibname %{name} 0 -d
+Conflicts:	%{_lib}CEUI0.6-devel
 
 %description -n  %{develname}
 Development file for CEGUI.
