@@ -10,6 +10,7 @@ Group:		Development/C++
 URL:		http://www.cegui.org.uk
 Source0:	http://prdownloads.sourceforge.net/crayzedsgui/%{name}-%{version}.tar.gz
 Patch1:		cegui-0.7.5-fedora-cstddef.patch
+Patch2:		cegui-0.6.2-fedora-new-tinyxml.patch
 BuildRequires:	libxml2-devel
 BuildRequires:	mesagl-devel
 BuildRequires:	mesaglu-devel
@@ -58,6 +59,7 @@ Development file for CEGUI.
 %prep
 %setup -q
 %patch1 -p0
+%patch2 -p1
 
 touch NEWS COPYING README AUTHORS ChangeLog
 
