@@ -7,7 +7,7 @@ Version:	0.7.7
 Release:	2
 License:	MIT
 Group:		Development/C++
-URL:		http://www.cegui.org.uk
+URL:		https://www.cegui.org.uk
 Source0:	http://prdownloads.sourceforge.net/crayzedsgui/%{name}-%{version}.tar.gz
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(gl)
