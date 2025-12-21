@@ -9,6 +9,11 @@ License:	MIT
 Group:		Development/C++
 URL:		https://www.cegui.org.uk
 Source0:	http://prdownloads.sourceforge.net/crayzedsgui/%{name}-%{version}.tar.gz
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(glu)
